@@ -31,7 +31,7 @@ def url_crawl(driver):
         except Exception as e: # 예외처리
             print(f"Error occurred while crawling: {e}") # 예외가 발생하면 콘솔에 출력
 
-    return url_list # 크롤링 완료되면 url_list를 반
+    return url_list # 크롤링 완료되면 url_list를 반환
 
 
 # 개별 자기소개서의 정보를 추출하여 반환하는 함수
