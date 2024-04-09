@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[37]:
-
-
 import requests
 
 # # 미세먼지 경보 발령 현황 
@@ -24,48 +18,17 @@ params = {
 #     'ver' : '1.1'
 }
 response = requests.get(url, params=params)
-
-
-# In[38]:
-
-
 print(response)
-
-
-# In[39]:
-
-
 print(response.text)
-
-
-# In[40]:
-
-
 print(response.content.decode(encoding='utf-8')) 
-
-
-# In[41]:
 
 
 # beautifulsoup을 통해 xml 형식의 문자열을 파싱 (파서는 lxml 사용)
 from bs4 import BeautifulSoup
 
 xml = BeautifulSoup(response.text, 'lxml')
-
-
-# In[42]:
-
-
 type(xml)
-
-
-# In[43]:
-
-
 xml.find('header')
-
-
-# In[45]:
 
 
 # 필요한 라이브러리 선언
@@ -103,10 +66,3 @@ for item in items:
 df = pd.DataFrame(item_list) # item_list에 저장된 dict을 이용하여 데이터 프레임 생성
 
 df.to_excel(excel_writer="./fine dust.xlsx") # 데이터 프레임을 엑셀 파일로 저장
-
-
-# In[ ]:
-
-
-
-
