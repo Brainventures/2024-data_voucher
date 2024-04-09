@@ -1,12 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
 import requests
 
-# # 오존황사 발생정보
+# 오존황사 발생정보 조회
 url_base = 'http://apis.data.go.kr/B552584/OzYlwsndOccrrncInforInqireSvc/getOzAdvsryOccrrncInfo'
 url = url_base 
 api_key_utf8 = '%2FjEMJvdXRrLVtFtwr%2BU8UCwlaDibJ70XI3tSO1WAiv2aNo%2BJgK7wpWlQOc7J4zh70e41x%2FQREMkSqHIJDzq9nw%3D%3D'
@@ -21,48 +15,17 @@ params = {
     'year' : 2023
 }
 response = requests.get(url, params=params)
-
-
-# In[3]:
-
-
 print(response)
-
-
-# In[4]:
-
-
 print(response.text)
-
-
-# In[5]:
-
-
 print(response.content.decode(encoding='utf-8')) # response의 내용을 디코딩하여 문자열로 변환하고 출력하는 작업을 수행
-
-
-# In[6]:
 
 
 # beautifulsoup을 통해 xml 형식의 문자열을 파싱 (파서는 lxml 사용)
 from bs4 import BeautifulSoup
 
 xml = BeautifulSoup(response.text, 'lxml')
-
-
-# In[7]:
-
-
 type(xml)
-
-
-# In[8]:
-
-
 xml.find('header')
-
-
-# In[9]:
 
 
 # 필요한 라이브러리 선언
@@ -96,10 +59,3 @@ for item in items:
 df = pd.DataFrame(item_list) # item_list에 저장된 dict을 이용하여 데이터 프레임 생성
 
 df.to_excel(excel_writer="./ozone yellow dust.xlsx") # 데이터 프레임을 엑셀 파일로 저장
-
-
-# In[ ]:
-
-
-
-
