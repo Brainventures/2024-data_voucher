@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -30,10 +24,3 @@ df = pd.DataFrame(title_list, columns=['Titles'])
 
 # 엑셀 파일로 저장
 df.to_excel('./titles.xlsx', index=False)
-
-
-# In[ ]:
-
-
-
-
