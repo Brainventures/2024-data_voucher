@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[3]:
-
-
 import requests
 
 # 기상청_단기예보 조회
@@ -25,49 +19,16 @@ params = {
     'ny' : 127
 }
 response = requests.get(url, params=params)
-
-
-# In[4]:
-
-
 print(response)
-
-
-# In[5]:
-
-
 print(response.text)
-
-
-# In[6]:
-
-
 print(response.content.decode(encoding='utf-8')) # response의 내용을 디코딩하여 문자열로 변환하고 출력하는 작업을 수행
-
-
-# In[7]:
-
 
 # beautifulsoup을 통해 xml 형식의 문자열을 파싱 (파서는 lxml 사용)
 from bs4 import BeautifulSoup
 
 xml = BeautifulSoup(response.text, 'lxml')
-
-
-# In[8]:
-
-
 type(xml)
-
-
-# In[9]:
-
-
 xml.find('header')
-
-
-# In[10]:
-
 
 # 필요한 라이브러리 선언
 import pandas as pd
@@ -97,10 +58,3 @@ for item in items:
 df = pd.DataFrame(item_list) # item_list에 저장된 dict을 이용하여 데이터 프레임 생성
 
 df.to_excel(excel_writer="./short term forecast.xlsx") # 데이터 프레임을 엑셀 파일로 저장
-
-
-# In[ ]:
-
-
-
-
