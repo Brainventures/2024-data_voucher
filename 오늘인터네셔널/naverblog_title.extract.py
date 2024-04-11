@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -19,7 +13,7 @@ target_class = 'se-module se-module-text se-title-text'
 
 titles = soup.find_all(class_=target_class)
 
-# 제목을 담을 리스트 초기화
+# 제목을 담을 빈 리스트 선언
 title_list = []
 
 for title in titles:
@@ -31,10 +25,3 @@ df = pd.DataFrame({'Titles': title_list})
 
 # 엑셀 파일로 저장
 df.to_excel('./titles.xlsx', index=False)
-
-
-# In[ ]:
-
-
-
-
