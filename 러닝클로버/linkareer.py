@@ -27,7 +27,7 @@ def url_crawl(driver):
 
             for tag in url_tags:
                 url_name = tag.get_attribute('href') # 각 링크 요소에서 'href' 속성을 가져옴
-                url_list.append(url_name) # 가져온 url을 url_list에 추가가
+                url_list.append(url_name) # 가져온 url을 url_list에 추가
 
         except Exception as e: # 예외처리
             print(f"Error occurred while crawling: {e}") # 예외가 발생하면 콘솔에 출력
