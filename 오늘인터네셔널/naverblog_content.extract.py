@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[16]:
-
-
 import requests
 from bs4 import BeautifulSoup
 from bs4 import Comment
@@ -49,7 +43,6 @@ def extract_naverBlog(url):
     post_dir_name = './naverBlog/' + dir_names
 
     # 본문 내용을 html 타입으로 저장
-    # script 등 태그 제거
     [x.extract() for x in soup2.find_all('script')] # HTML에서 모든 'script' 태그를 찾아서 제거
     [x.extract() for x in soup2.find_all('style')] # HTML에서 모든 'style' 태그를 찾아서 제거
     [x.extract() for x in soup2.find_all('meta')] # HTML에서 모든 'meta' 태그를 찾아서 제거
@@ -110,10 +103,6 @@ def extract_naverBlog(url):
 # 추출할 url 주소
 url = 'https://blog.naver.com/on2455/223406867437'
 extract_naverBlog(url)
-
-
-# In[ ]:
-
 
 
 
