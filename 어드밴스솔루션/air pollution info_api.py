@@ -1,19 +1,5 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
 pip install requests
-
-
-# In[3]:
-
-
 pip install pandas
-
-
-# In[1]:
 
 
 import requests
@@ -34,48 +20,17 @@ params = {
     'ver' : '1.1'
 }
 response = requests.get(url, params=params)
-
-
-# In[2]:
-
-
 print(response)
-
-
-# In[3]:
-
-
 print(response.text)
-
-
-# In[4]:
-
-
 print(response.content.decode(encoding='utf-8')) # response의 내용을 디코딩하여 문자열로 변환하고 출력하는 작업을 수행
-
-
-# In[5]:
 
 
 # beautifulsoup을 통해 xml 형식의 문자열을 파싱 (파서는 lxml 사용)
 from bs4 import BeautifulSoup
 
 xml = BeautifulSoup(response.text, 'lxml')
-
-
-# In[6]:
-
-
 type(xml)
-
-
-# In[7]:
-
-
 xml.find('header')
-
-
-# In[8]:
 
 
 # 필요한 라이브러리 선언
@@ -116,16 +71,7 @@ for item in items:
 df = pd.DataFrame(item_list) # item_list에 저장된 dict을 이용하여 데이터 프레임 생성
 
 df.to_excel(excel_writer="./air_info.xlsx") # 데이터 프레임을 엑셀 파일로 저장
-
-
-# In[9]:
-
-
-df.iloc[0]
-
-
-# In[ ]:
-
+df.iloc[0] # 데이터 프레임에서 첫 번째 행을 선택
 
 
 
