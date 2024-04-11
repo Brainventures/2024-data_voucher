@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[12]:
+
+
+import json
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -12,7 +19,7 @@ def initialize_browser():
 
 # 자기소개서 URL을 크롤링하여 반환하는 함수
 def url_crawl(driver): 
-    url_list = [] # 크롤링된 url을 저장할 빈 리스트 선언
+    url_list = [] # 자기소개서 url을 저장하는 빈 리스트를 선언
 
     for page in range(1, 11): # 링커리어 자소서 페이지는 638페이지 정도 되는데 테스트 하려고 범위를 10까지로 지정
         url = f"https://linkareer.com/cover-letter/search?page={page}&tab=all" # 각 페이지에 대한 url을 생성
@@ -34,9 +41,26 @@ def url_crawl(driver):
     return url_list # 크롤링 완료되면 url_list를 반환
 
 
+# JSON 데이터 파싱하여 필요한 정보 추출
+def parse_json(json_data): 
+    data = json.loads(json_data) # json.loads(json_data)를 사용하여 json 데이터를 파이썬 객체로 로드
+    organization_name = "NH농협은행"
+    role = "IT"
+    university = data.get("university", "")
+    major = data.get("major", "")
+    grades = data.get("grades", "")
+    language_score = data.get("languageScore", "")
+    career = data.get("career", "")
+    license = data.get("license", "")
+    return organization_name, role, university, major, grades, language_score, career, license 
+
+
 # 개별 자기소개서의 정보를 추출하여 반환하는 함수
-def extract_self_introduction(driver, url):
+def extract_self_introduction(driver, url, json_data):
     try:
+        # JSON 데이터 파싱
+        organization_name, role, university, major, grades, language_score, career, license = parse_json(json_data)
+        
         driver.get(url)
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//h1[contains(@class, 'ui') and contains(@class, 'header')]")))
         
@@ -45,13 +69,22 @@ def extract_self_introduction(driver, url):
         content = driver.find_element(By.ID, "coverLetterContent")
         
         info_list = info.text.split(' / ')
-        
+        '''
+        # 사용자의 대학교, 전공, 성적, 언어 점수, 경력, 자격증 등의 정보
+        '''
         person = {
-            'company': info_list[0],
-            'job': info_list[1],
-            'year': info_list[2],
-            'specification': specification.text,
-            'self_intro': content.text
+            'id' : info_list[0],
+            'organizationName': organization_name,
+            'role': role,
+            'major': major,
+            'university' : university,
+            'grades': grades,
+            'languageScore' : language_score,
+            'career' : career,
+            'activity' : info_list[8],  # 활동 정보는 JSON 데이터에서 추출하지 않음
+            'license' : license,
+#             'specification': specification.text,
+            'content': content.text
         }
         return person
     
@@ -63,11 +96,11 @@ def extract_self_introduction(driver, url):
 # 자기소개서 정보를 엑셀 파일로 저장하는 함수
 def save_to_excel(data, filename='./self_introductions.xlsx'):
     try:
-        df = pd.DataFrame(data)
+        df = pd.DataFrame(data) # pandas의 dataFrame 형식으로 반환
         df.to_excel(filename, index=False)
-        print(f"Data saved to {filename} successfully.")
-    except Exception as e:
-        print(f"Error occurred while saving data to Excel: {e}")
+        print(f"Data saved to {filename} successfully.") # 저장 성공하면 출력
+    except Exception as e: # 저장 과정에서 오류 발생하면 해당 오류를 출력
+        print(f"Error occurred while saving data to Excel: {e}") 
     
 
 # 메인 함수
@@ -80,11 +113,11 @@ def main():
         urls = url_crawl(driver)
         
         # 자기소개서 추출
-        self_introductions = []
-        for url in urls:
-            intro = extract_self_introduction(driver, url)
-            if intro:
-                self_introductions.append(intro)
+        self_introductions = []  # 추출된 자기소개서를 저장할 빈 리스트 선언
+        for url in urls: # url 리스트에 있는 각 url을 반복 (이 리스트는 이전 단계에서 크롤링한 자기소개서 페이지의 url을 포함)
+            intro = extract_self_introduction(driver, url) # 자기소개서가 존재하면 반환된 자기소개서 내용을 intro 변수에 저장
+            if intro: # 자기소개서가 성공적으로 추출되었다면
+                self_introductions.append(intro) # self_introductions에 intro에 추가
         
         # 추출된 자기소개서를 엑셀로 저장
         save_to_excel(self_introductions, filename='./self_introductions.xlsx')
@@ -97,3 +130,10 @@ def main():
 # 메인 함수 호출
 if __name__ == "__main__":
     main()
+
+
+# In[ ]:
+
+
+
+
