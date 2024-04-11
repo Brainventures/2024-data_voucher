@@ -1,25 +1,13 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[4]:
-
-
 import requests
 
 req = requests.get('https://linkareer.com/cover-letter/32840?page=1&sort=PASSED_AT&tab=all')
 req.text
 
 
-# In[5]:
-
-
 from bs4 import BeautifulSoup
 
 soup = BeautifulSoup(req.content, 'html.parser')
 print(soup)
-
-
-# In[6]:
 
 
 import json
@@ -66,10 +54,3 @@ try:
     print(f"Data saved to {filename} successfully.")
 except Exception as e:
     print(f"Error occurred while saving data to Excel: {e}")
-
-
-# In[ ]:
-
-
-
-
