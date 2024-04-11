@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[12]:
+
+
 import json
 import pandas as pd
 from selenium import webdriver
@@ -124,3 +130,10 @@ def main():
 # 메인 함수 호출
 if __name__ == "__main__":
     main()
+
+
+# In[ ]:
+
+
+
+
