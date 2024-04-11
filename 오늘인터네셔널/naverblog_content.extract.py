@@ -95,12 +95,12 @@ def extract_naverBlog(url):
     data = {'제목': [post_title], '내용': [contents]} 
     df = pd.DataFrame(data) # 딕셔너리를 데이터 프레임으로 변환
     
-    # 엑셀 파일로 저장
     excel_filename = post_title.replace('\n', '') + '.xlsx' # 엑셀 파일의 이름 생성. 개행 문자 제거하고, 확장자로 '.xlsx' 추가하여 생성
     excel_filepath = post_dir_name + '/' + excel_filename # 엑셀 파일의 저장 경로 생성
     df.to_excel(excel_writer=excel_filepath, index=False) # 데이터 프레임을 엑셀 파일로 저장
             
 # 추출할 url 주소
+# url = 'https://blog.naver.com/on2455
 url = 'https://blog.naver.com/on2455/223406867437'
 extract_naverBlog(url)
 
