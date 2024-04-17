@@ -1,12 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
 import requests
 
-# 부산광역시_대기질 정보 조회
+# 인천광역시서구시설관리공단_실시간 실내공기질 측정 데이터 조회 서비스
 url_base = 'http://apis.data.go.kr/B551296/SeoguIaqSvc/getSeoguIaqRtData'
 url = url_base 
 api_key_utf8 = 'D5v8NPs87kaeUioo2TfiZzJaPeE4mwxyzbDv9UXl1gRRvudDM2I3%2B1Pj1PV2Luz9ZG5NRlub6UYoN%2F5a%2BCuPLQ%3D%3D'
@@ -20,48 +14,17 @@ params = {
     'numOfRows': 10
 }
 response = requests.get(url, params=params)
-
-
-# In[3]:
-
-
 print(response)
-
-
-# In[4]:
-
-
 print(response.text)
-
-
-# In[5]:
-
-
 print(response.content.decode(encoding='utf-8'))
-
-
-# In[6]:
 
 
 # beautifulsoup을 통해 xml 형식의 문자열을 파싱 (파서는 lxml 사용)
 from bs4 import BeautifulSoup
 
 xml = BeautifulSoup(response.text, 'lxml')
-
-
-# In[7]:
-
-
 type(xml)
-
-
-# In[34]:
-
-
 xml.find('header')
-
-
-# In[8]:
 
 
 # 필요한 라이브러리 선언
@@ -96,29 +59,3 @@ for item in items:
 df = pd.DataFrame(item_list) # item_list에 저장된 dict을 이용하여 데이터 프레임 생성
 
 df.to_excel(excel_writer='./Incheon_info.xlsx') # 데이터 프레임을 엑셀 파일로 저장
-
-
-# In[ ]:
-
-
-#     item_dict = {
-#         '지역이름': convert_string(item, 'site'),
-#         '측정소 코드' : convert_string(item, 'areaIndex'),
-#         '측정시간' : convert_string(item, 'controlnumber'),
-#         '대표항목' : convert_string(item, 'repItem'),
-#         '대표항목 값' : convert_string(item, 'repVal'),
-#         '대표항목 지수': convert_string(item, 'repCai'),
-#         '아황산가스' : convert_string(item, 'so2'),
-#         '아황산가스 지수' : convert_string(item, 'so2Cai'),
-#         '이산화질소' : convert_string(item, 'no2'),
-#         '이산화질소 지수' : convert_string(item, 'no2Cai'),
-#         '오존' : convert_string(item, 'o3'),
-#         '오존 지수': convert_string(item, 'o3Cai'),
-#         '일산화탄소' : convert_string(item, 'co'),
-#         '일산화탄소 지수' : convert_string(item, 'coCai'),
-#         '초미세먼지' : convert_string(item, 'pm25'),
-#         '초미세먼지 지수' : convert_string(item, 'pm25Cai'),
-#         '미세먼지' : convert_string(item, 'pm10'),
-#         '미세먼지 지수' : convert_string(item, 'pm10Cai')        
-#     }
-
