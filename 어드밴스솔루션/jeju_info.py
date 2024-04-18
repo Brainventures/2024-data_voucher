@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[22]:
-
-
 import requests
 
 # 제주 대기 환경 정보 
@@ -17,47 +11,16 @@ params = {
     'ver' : '1.1'
 }
 response = requests.get(url, params=params)
-
-
-# In[23]:
-
-
 print(response)
-
-
-# In[24]:
-
-
 print(response.text)
-
-
-# In[25]:
-
-
 print(response.content.decode(encoding='utf-8')) 
-
-
-# In[26]:
 
 
 from bs4 import BeautifulSoup
 
 xml = BeautifulSoup(response.text, 'lxml')
-
-
-# In[27]:
-
-
 type(xml)
-
-
-# In[28]:
-
-
 xml.find('header')
-
-
-# In[29]:
 
 
 # 필요한 라이브러리 선언
@@ -93,10 +56,3 @@ for item in items:
 df = pd.DataFrame(item_list) # item_list에 저장된 dict을 이용하여 데이터 프레임 생성
 
 df.to_excel(excel_writer="./jeju_info.xlsx") # 데이터 프레임을 엑셀 파일로 저장
-
-
-# In[ ]:
-
-
-
-
