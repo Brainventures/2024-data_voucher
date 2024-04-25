@@ -48,8 +48,8 @@ driver.get('https://www.albamon.com/user-account/login?redirect_url=&memberType=
 while(True):
 
     try: 
-#         driver.find_element(By.CSS_SELECTOR,'#memberId') # 예외처리에 필요 이 구문이 없으면 아이디가 클립보드에 계속 복사됨
-#         time.sleep(3)  
+        driver.find_element(By.CSS_SELECTOR,'#memberId') # 예외처리에 필요 이 구문이 없으면 아이디가 클립보드에 계속 복사됨
+        time.sleep(3)  
         nid='wqe3' # 아이디 입력부분
         pyperclip.copy(nid)
         driver.find_element(By.CSS_SELECTOR,'#memberId').send_keys(Keys.CONTROL+'v')
