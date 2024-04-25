@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[33]:
-
-
 import requests
 from bs4 import BeautifulSoup
 
@@ -31,42 +25,8 @@ print("학력:")
 print(introduction_text)
 
 
-# In[16]:
 
-
-import requests
-from bs4 import BeautifulSoup
-
-# 합격 자기소개서가 게시된 페이지의 URL
-url = 'https://www.albamon.com/human-resources/detail/20707593'
-
-# 페이지에 접속하여 HTML 가져오기
-response = requests.get(url)
-html = response.text
-
-# BeautifulSoup을 사용하여 HTML 파싱
-soup = BeautifulSoup(html, 'html.parser')
-
-# 필요한 내용을 담을 변수
-introduction_text = ''
-
-# 필요한 태그가 들어있는 변수 선언
-introduction_div = soup.find('span', class_='Typography_typography__53V55 Typography_typography--B2__60_O6 Typography_typography--regular__qCojp resume-view-header__descripition')
-if not introduction_div:
-    introduction_div = soup.find('div', class_='Typography_typography__53V55 Typography_typography--B3__drium Typography_typography--regular__qCojp template-education__description')
-
-if introduction_div:
-    # 자기소개서 내용을 가져옵니다.
-    introduction_text = introduction_div.get_text(strip=True)
-
-# 가져온 내용 출력
-print("내용:")
-print(introduction_text)
-
-
-# In[ ]:
-
-
+## 로그인 자동화 ##
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
@@ -104,4 +64,3 @@ while(True):
     
     except: 
         print("no such element") # 예외처리
-
