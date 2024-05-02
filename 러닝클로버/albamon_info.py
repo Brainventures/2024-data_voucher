@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-# 인재정보가 게시된 페이지의 URL
+# 인재 정보가 게시된 페이지의 URL
 url = 'https://www.albamon.com/human-resources/detail/21064286'
 
 # 페이지에 접속하여 HTML 가져오기
@@ -11,7 +11,7 @@ html = response.text
 # BeautifulSoup을 사용하여 HTML 파싱
 soup = BeautifulSoup(html, 'html.parser')
 
-# 인재정보를 담을 변수
+# 인재 정보를 담을 변수
 introduction_text = ''
 
 # 필요한 태그가 들어있는 변수 선언
@@ -48,7 +48,7 @@ driver.get('https://www.albamon.com/user-account/login?redirect_url=&memberType=
 while(True):
 
     try: 
-        driver.find_element(By.CSS_SELECTOR,'#memberId') # 예외처리에 필요 이 구문이 없으면 아이디가 클립보드에 계속 복사됨
+        driver.find_element(By.CSS_SELECTOR,'#memberId') # 예외처리에 필요 이 구문이 없으면 아이디가 클립 보드에 계속 복사됨
         time.sleep(3)  
         nid='wqe3' # 아이디 입력부분
         pyperclip.copy(nid)
@@ -58,7 +58,7 @@ while(True):
         pyperclip.copy(npw)
         secure='blank'
         driver.find_element(By.CSS_SELECTOR,'#memberPassword').send_keys(Keys.CONTROL + 'v')
-#         pyperclip.copy(secure) # 비밀번호 보안을위해 클립보드에 blank저장
+#         pyperclip.copy(secure) # 비밀번호 보안을 위해 클립 보드에 blank 저장
         driver.find_element(By.XPATH,'//*[@id="__next"]').click()
         driver.get('https://www.albamon.com/user-account/login?redirect_url=&memberType=PERSONAL') # 알바몬 사이트로 이동
     
