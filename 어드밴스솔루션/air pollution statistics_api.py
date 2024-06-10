@@ -1,10 +1,3 @@
-한국환경공단 에어코리아 OpenAPI
-기상청 단기예보 OpenAPI
-
-
-
-
-
 import requests
 
 # 대기오염통계 현황
