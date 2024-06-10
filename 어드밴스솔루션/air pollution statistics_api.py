@@ -1,3 +1,5 @@
+!pip install requests
+
 import requests
 
 # 대기오염통계 현황
