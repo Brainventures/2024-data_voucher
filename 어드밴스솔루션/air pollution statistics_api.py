@@ -1,4 +1,4 @@
-!pip install requests
+!pip install requests # requests를 위한 라이브러리 설치
 
 import requests
 
